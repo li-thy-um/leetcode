@@ -5,7 +5,7 @@ def two_sum(numbers, target)
   r = (numbers & numbers.map { |n| target - n }).sort
   num_1, num_2 = r.first, r.last
   index_1 = numbers.find_index(num_1) + 1 
-  index_2 = numbers.size - numbers.reverse.find_index(num_2)
+  index_2 = numbers.rindex(num_2) + 1
   [index_1, index_2].sort
 end
 
