@@ -20,31 +20,24 @@ def solve(n1, n2, i1, j1, i2, j2)
   case
   
   when l1 == 1 && l2 == 1
-    puts 1
     (n1[i1] + n2[i2]) / 2.0  
   
   when l1 == 1
-    puts 2
     n2.median_single i2, j2, n1[i1]
   
   when l2 == 1
-    puts 3
     n1.median_single i1, j1, n2[i2]
 
   when l1 == 2
-    puts 4
     n2.median_double i2, j2, n1[i1], n1[j1]
 
   when l2 == 2
-    puts 5
     n1.median_double i1, j1, n2[i2], n2[j2]
 
   when m1 == m2
-    puts 6
     m1
 
   when m1 > m2
-    puts 7
     x = j1 - mi1[1] 
     y = mi2[0] - i2 
     z = x < y ? x : y
@@ -53,7 +46,6 @@ def solve(n1, n2, i1, j1, i2, j2)
     solve(n1, n2, i1, j1 - z, i2 + z, j2)
   
   when m1 < m2
-    puts 8
     solve(n2, n1, i2, j2, i1, j1) 
   
   end
@@ -74,7 +66,6 @@ class Array
     mi1, mi2 = self.index_of_sorted_median(i, j)
     m1, m2 = self[mi1], self[mi2]
     l = j - i + 1 
-    puts [n1, n2, self[i..j]].inspect
     if l.even?
       m1_prev = self.prev(mi1)
       m2_next = self.next(mi2)
