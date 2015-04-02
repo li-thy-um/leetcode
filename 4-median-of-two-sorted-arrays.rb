@@ -41,8 +41,6 @@ def solve(n1, n2, i1, j1, i2, j2)
     x = j1 - mi1[1] 
     y = mi2[0] - i2 
     z = x < y ? x : y
-    puts [i1, j1-z, i2+z, j2, x, y].inspect
-    
     solve(n1, n2, i1, j1 - z, i2 + z, j2)
   
   when m1 < m2
