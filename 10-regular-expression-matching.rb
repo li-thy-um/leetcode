@@ -23,8 +23,21 @@ def r_is_match(s, p)
 end
 
 def compact(p)
+	
   if p.include?("*")
 
+		# 把相邻的 * 合并		
+		prev_c = ""
+		r_p = ""	
+		p.chars.each do |c|
+			unless c == "*" && prev_c == "*"
+				r_p += c
+				prev_c = c		
+			end
+		end
+		p = r_p
+
+		# 把相邻的 .* 合并
     a, b, r1, r2 = p.split("*"), "", "", ""
     
     if p[-1] != "*" 
@@ -46,6 +59,7 @@ def compact(p)
 end
 
 puts compact("b*.c*..*.b*b*.*c*")
+puts compact("b*.c*..*.b*.*.**b*.*c**")
 
 puts "==="
 
