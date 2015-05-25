@@ -3,28 +3,23 @@
 # @return {Boolean}
 
 def is_match(s, p)
+  r_is_match(s, compact(p))
+end
 
-  return s.nil? if p.nil?
-  return p.nil? if s.nil?
+def r_is_match(s, p)
   return s == "" if p == ""
-  return true if p.size == 1 && s.size == 1 && ( p[0] == s[0] || p[0] == "." )
   
-  p = compact p
+  if p.size == 1 || p[1] != "*"
+    return false if s == "" || (p[0] != "." && s[0] != p[0])
+    return r_is_match(s[1..-1], p[1..-1])
+  end
 
-  if p[1] == "*"
-    i = -1
-    while i < s.size && ( i < 0 || p[0] == "." || p[0] == s[i])
-      return true if is_match(s[i+1..-1], p[2..-1])  
-      i += 1 
-    end
-    return false
+  i = -1
+  while i < s.size && ( i < 0 || p[0] == "." || p[0] == s[i])
+    return true if r_is_match(s[i+1..-1], p[2..-1])  
+    i += 1 
   end
-  
-  if p[0] == "."
-    is_match(s[1..-1], p[1..-1])
-  else
-    s[0] == p[0] ? is_match(s[1..-1], p[1..-1]) : false
-  end
+  false
 end
 
 def compact(p)
